@@ -22,7 +22,7 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
-   throw new Error('Not implemented');
+   return new Date(value);
 }
 
 /**
@@ -37,7 +37,7 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-   throw new Error('Not implemented');
+   return new Date(value);
 }
 
 
@@ -56,7 +56,19 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   throw new Error('Not implemented');
+   let year =date.getFullYear(); 
+   if(year%4 != 0){
+      return false;
+   }
+   else if(year%100 != 0){
+      return true;
+   }
+   else if(year % 400 != 0){
+      return false;
+   }
+   else{
+      return true;
+   }
 }
 
 
@@ -76,7 +88,12 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
+   let newDate = new Date(0,0,0,endDate.getHours() - startDate.getHours(),endDate.getMinutes() - startDate.getMinutes(),endDate.getSeconds() - startDate.getSeconds(),endDate.getMilliseconds() - startDate.getMilliseconds());
+   let hours = `${newDate.getHours()}`.padStart(2,'0');
+   let minutes = `${newDate.getMinutes()}`.padStart(2,'0'); 
+   let seconds =`${newDate.getSeconds()}`.padStart(2,'0');
+   let milliSeconds = `${newDate.getMilliseconds()}`.padStart(3,'0');
+   return `${hours}:${minutes}:${seconds}.${milliSeconds}`;
 }
 
 
@@ -94,8 +111,16 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    throw new Error('Not implemented');
+    let newDate = new Date(date);
+     let hour = (newDate.getHours()-3)%12;
+     let minutes = newDate.getMinutes();
+   //  let result = (Math.PI*hour/12.00 *2) % Math.PI/2;
+   let result= Math.abs( 0.5 * (60*hour - 11*minutes));
+   if (result > 180 ){result = 360 - result;};
+    return result* Math.PI / 180;
+
 }
+angleBetweenClockHands(Date.UTC(2016,3,5,14,20));
 
 
 module.exports = {

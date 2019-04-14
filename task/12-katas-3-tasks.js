@@ -46,6 +46,23 @@ function findStringInSnakingPuzzle(puzzle, searchStr) {
  */
 function* getPermutations(chars) {
     throw new Error('Not implemented');
+    let result;
+    // if (str.length == 1) yield [str];
+    // if (str.length == 2) {
+    //     yield str;
+    //     yield str[1] + str[0];
+    // }
+    // str.split('').forEach(function (chr, idx, arr) {
+    //     let sub = [].concat(arr); // "clone" arr
+    //     sub.splice(idx, 1);
+    //     permute(sub.join('')).forEach(function (perm) {
+    //         result.push(chr + perm);
+    //     });
+    // });
+    //     result.forEach(el => {
+    //         yield el;
+    //     })
+
 }
 
 
@@ -65,8 +82,19 @@ function* getPermutations(chars) {
  *    [ 1, 6, 5, 10, 8, 7 ] => 18  (buy at 1,6,5 and sell all at 10)
  */
 function getMostProfitFromStockQuotes(quotes) {
-    throw new Error('Not implemented');
+    let result = 0;
+    let nextPrices;
+    let max;
+    for (let i = 0; i < quotes.length; i++) {
+        nextPrices = quotes.slice(i + 1);
+        max = Math.max(...nextPrices);
+        if (max > quotes[i]) {
+            result += max - quotes[i];
+        }
+    }
+    return result;
 }
+
 
 
 /**
@@ -84,20 +112,20 @@ function getMostProfitFromStockQuotes(quotes) {
  * 
  */
 function UrlShortener() {
-    this.urlAllowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"+
-                           "abcdefghijklmnopqrstuvwxyz"+
-                           "0123456789-_.~!*'();:@&=+$,/?#[]";
+    this.urlAllowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+        "abcdefghijklmnopqrstuvwxyz" +
+        "0123456789-_.~!*'();:@&=+$,/?#[]";
 }
 
 UrlShortener.prototype = {
 
-    encode: function(url) {
+    encode: function (url) {
         throw new Error('Not implemented');
     },
-    
-    decode: function(code) {
+
+    decode: function (code) {
         throw new Error('Not implemented');
-    } 
+    }
 }
 
 
